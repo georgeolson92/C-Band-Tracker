@@ -4,7 +4,7 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace BandTracker.Objects
+namespace BandTracker
 {
   public class BandTest : IDisposable
   {
