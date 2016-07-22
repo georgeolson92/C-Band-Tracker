@@ -6,7 +6,14 @@
   <ul>
   @foreach(var band in @Model["bands"])
   {
-    <li><a href='/bands/@band.GetId()'>@band.GetName()</a></li>
+    <li><a href='/bands/@band.GetId()'>@band.GetName()</a>
+
+      <form class='float-form' action="/bands/delete/" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input name="band-id" value=@band.GetId() type="hidden">
+        <button type="submit" class="btn btn-danger">Remove</button>
+      </form>
+    </li>
   }
   </ul>
 }
@@ -27,7 +34,13 @@ else
   <ul>
   @foreach(var venue in @Model["venues"])
   {
-    <li><a href='/venues/@venue.GetId()'>@venue.GetName()</a></li>
+    <li><a href='/venues/@venue.GetId()'>@venue.GetName()</a>
+      <form class='float-form' action="/venues/delete/" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input name="venue-id" value=@venue.GetId() type="hidden">
+        <button type="submit" class="btn btn-danger">Remove</button>
+      </form>
+    </li>
   }
   </ul>
 }

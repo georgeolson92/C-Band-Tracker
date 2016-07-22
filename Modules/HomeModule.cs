@@ -85,6 +85,28 @@ namespace BandTracker
         model.Add("allBands", allBands);
         return View["venue.cshtml", model];
       };
+      Delete["/bands/delete"] = _ => {
+        int SearchId = Request.Form["band-id"];
+        Band foundBand = Band.Find(SearchId);
+        foundBand.Delete();
+        List<Band> allBands = Band.GetAll();
+        List<Venue> allVenues = Venue.GetAll();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        model.Add("bands", allBands);
+        model.Add("venues", allVenues);
+        return View["index.cshtml", model];
+      };
+      Delete["/venues/delete"] = _ => {
+        int SearchId = Request.Form["venue-id"];
+        Venue foundVenue = Venue.Find(SearchId);
+        foundVenue.Delete();
+        List<Band> allBands = Band.GetAll();
+        List<Venue> allVenues = Venue.GetAll();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        model.Add("bands", allBands);
+        model.Add("venues", allVenues);
+        return View["index.cshtml", model];
+      };
     }
   }
 }
