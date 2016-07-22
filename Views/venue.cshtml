@@ -28,3 +28,9 @@ else
   </select>
   <button type="submit">Add played band</button>
 </form>
+
+<form class='float-form' action="/venues/delete/" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <input name="venue-id" value=@Model["venue"].GetId() type="hidden">
+  <button type="submit" class="btn btn-danger">Delete this venue</button>
+</form>
