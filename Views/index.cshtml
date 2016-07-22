@@ -1,0 +1,43 @@
+<h1>Band Tracker</h1>
+
+<h2>Bands:</h2>
+@if (@Model["bands"].Count != 0)
+{
+  <ul>
+  @foreach(var band in @Model["bands"])
+  {
+    <li><a href='/bands/@band.GetId()'>@band.GetName()</a></li>
+  }
+  </ul>
+}
+else
+{
+  <p>No bands.</p>
+}
+
+<form action="/bands/new" method="post">
+  <label for="band-name">Name:</label>
+  <input name="band-name" type="text">
+  <button type="submit">Add new band</button>
+</form>
+
+<h2>Venues:</h2>
+@if (@Model["venues"].Count != 0)
+{
+  <ul>
+  @foreach(var venue in @Model["venues"])
+  {
+    <li><a href='/venues/@venue.GetId()'>@venue.GetName()</a></li>
+  }
+  </ul>
+}
+else
+{
+  <p>No venues.</p>
+}
+
+<form action="/venues/new" method="post">
+  <label for="venue-name">Name:</label>
+  <input name="venue-name" type="text">
+  <button type="submit">Add new venue</button>
+</form>

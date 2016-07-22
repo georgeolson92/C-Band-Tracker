@@ -16,6 +16,7 @@ namespace BandTracker
     public void Dispose()
     {
       Band.DeleteAll();
+      Venue.DeleteAll();
     }
 
     [Fact]
@@ -99,6 +100,48 @@ namespace BandTracker
 
       //Assert
       Assert.Equal(newName, resultNewName);
+    }
+
+    [Fact]
+    public void Test_AddVenue_AddsVenueToBand()
+    {
+      //Arrange
+      Band testBand = new Band("Grouplove");
+      testBand.Save();
+
+      Venue testVenue = new Venue("Roseland Theater");
+      testVenue.Save();
+
+      //Act
+      testBand.AddVenue(testVenue);
+
+      List<Venue> result = testBand.GetVenues();
+      List<Venue> testList = new List<Venue>{testVenue};
+
+      //Assert
+      Assert.Equal(testList, result);
+    }
+
+    [Fact]
+    public void Test_GetVenues_ReturnsAllBandVenues()
+    {
+      //Arrange
+      Band testBand = new Band("Grouplove");
+      testBand.Save();
+
+      Venue testVenue1 = new Venue("Roseland Theater");
+      testVenue1.Save();
+
+      Venue testVenue2 = new Venue("Star Theater");
+      testVenue2.Save();
+
+      //Act
+      testBand.AddVenue(testVenue1);
+      List<Venue> result = testBand.GetVenues();
+      List<Venue> testList = new List<Venue> {testVenue1};
+
+      //Assert
+      Assert.Equal(testList, result);
     }
 
 

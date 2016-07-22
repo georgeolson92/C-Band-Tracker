@@ -1,0 +1,30 @@
+<h1>Band Tracker</h1>
+
+<h2>@Model["band"].GetName()</h2>
+
+<h3>Venues played:</h3>
+@if(@Model["bandVenues"].Count != 0)
+{
+  <ul>
+  @foreach(var venue in @Model["bandVenues"])
+  {
+    <li><a href='/venues/@venue.GetId()'>@venue.GetName()</a></li>
+  }
+  </ul>
+}
+else
+{
+  <p>No venues.</p>
+}
+
+<h3>Add new venue to list:</h3>
+<form action='/bands/@Model["band"].GetId()/add-venue' method="post">
+  <label for="venue-name">Venue Name:</label>
+  <select name="venue-name">
+  @foreach(var venue in @Model["allVenues"])
+  {
+    <option value='@venue.GetId()'>@venue.GetName()</option>
+  }
+  </select>
+  <button type="submit">Add played venue</button>
+</form>
