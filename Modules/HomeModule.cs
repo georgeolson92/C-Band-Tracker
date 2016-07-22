@@ -107,6 +107,42 @@ namespace BandTracker
         model.Add("venues", allVenues);
         return View["index.cshtml", model];
       };
+      Get["/bands/{id}/edit"] = parameters => {
+        int SearchId = parameters.id;
+        Band foundBand = Band.Find(SearchId);
+        return View["edit_band.cshtml", foundBand];
+      };
+      Get["/venues/{id}/edit"] = parameters => {
+        int SearchId = parameters.id;
+        Venue foundVenue = Venue.Find(SearchId);
+        return View["edit_venue.cshtml", foundVenue];
+      };
+      Patch["/venues/{id}/"] = parameters => {
+        int SearchId = parameters.id;
+        Venue foundVenue = Venue.Find(SearchId);
+        string newName = Request.Form["new-name"];
+        foundVenue.Update(newName);
+        List<Band> allBands = Band.GetAll();
+        List<Band> venueBands = foundVenue.GetBands();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        model.Add("venue", foundVenue);
+        model.Add("venueBands", venueBands);
+        model.Add("allBands", allBands);
+        return View["venue.cshtml", model];
+      };
+      Patch["/bands/{id}/"] = parameters => {
+        int SearchId = parameters.id;
+        Band foundBand = Band.Find(SearchId);
+        string newName = Request.Form["new-name"];
+        foundBand.Update(newName);
+        List<Venue> allVenues = Venue.GetAll();
+        List<Venue> bandVenues = foundBand.GetVenues();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        model.Add("band", foundBand);
+        model.Add("bandVenues", bandVenues);
+        model.Add("allVenues", allVenues);
+        return View["band.cshtml", model];
+      };
     }
   }
 }

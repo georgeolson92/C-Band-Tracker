@@ -176,11 +176,13 @@ namespace BandTracker
       SqlParameter newNameParameter = new SqlParameter();
       newNameParameter.ParameterName = "@NewName";
       newNameParameter.Value = newName;
-      cmd.Parameters.Add(newNameParameter);
+
 
       SqlParameter venueIdParameter = new SqlParameter();
       venueIdParameter.ParameterName = "@VenueId";
       venueIdParameter.Value = this.GetId();
+
+      cmd.Parameters.Add(newNameParameter);
       cmd.Parameters.Add(venueIdParameter);
       rdr = cmd.ExecuteReader();
 

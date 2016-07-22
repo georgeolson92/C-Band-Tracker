@@ -7,7 +7,9 @@
   @foreach(var band in @Model["bands"])
   {
     <li><a href='/bands/@band.GetId()'>@band.GetName()</a>
-
+      <a href='/bands/@band.GetId()/edit'>
+        <button type="button" class="btn btn-success">Edit</button>
+      </a>
       <form class='float-form' action="/bands/delete/" method="post">
         <input type="hidden" name="_method" value="DELETE">
         <input name="band-id" value=@band.GetId() type="hidden">
@@ -35,6 +37,9 @@ else
   @foreach(var venue in @Model["venues"])
   {
     <li><a href='/venues/@venue.GetId()'>@venue.GetName()</a>
+      <a href='/venues/@venue.GetId()/edit'>
+        <button type="button" class="btn btn-success">Edit</button>
+      </a>
       <form class='float-form' action="/venues/delete/" method="post">
         <input type="hidden" name="_method" value="DELETE">
         <input name="venue-id" value=@venue.GetId() type="hidden">
