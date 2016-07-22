@@ -7,14 +7,14 @@ _Track bands and the venues they play at!_
 ### Specifications
 | Behavior | Input | Output |
 |:---  | :---  | :----  |
-|Adds a new band to list| `new band = "Grouplove"`| `"List of Bands: Grouplove"`|
-|Edits band name| `band = "Grouplove", new name = "Grouphate"`| `"List of Bands: Grouphate"`|
+|Adds a new band| `new band = "Grouplove"`| `"List of Bands: Grouplove"`|
 |Removes a band| `remove band "Grouplove"`| `No bands.`|
-|Adds a venue to list| `new venue: name = "Roseland Theater"` | `"List of venues: Roseland Theater"`|
-|Edits venue name| `venue = "Roseland Theater", new name = "Roseland Theatre"`| `"List of venues: Roseland Theatre"`|
+|Edits band name| `band = "Grouplove", new name = "Grouphate"`| `"List of Bands: Grouphate"`|
+|Adds a new venue| `new venue: name = "Roseland Theater"` | `"List of venues: Roseland Theater"`|
 |Removes a venue| `remove venue "Roseland Theatre"`| `No venues.`|
-|Adds a currently existing venue to a list of band's played venues| `venue name = "Roseland Theater", band = "Grouplove";`| `"List of venues Grouplove has played at: Roseland Theater"`|
-|Adds a currently existing band to a venue's list of concerts| `venue name = "Roseland Theater", band = "Grouplove";`| `"List of bands that have played at Roseland Theater: Grouplove"`|
+|Edits venue name| `venue = "Roseland Theater", new name = "Roseland Theatre"`| `"List of venues: Roseland Theatre"`|
+|Adds a venue to a list of band's played venues| `venue name = "Roseland Theater", band = "Grouplove";`| `"List of venues Grouplove has played at: Roseland Theater"`|
+|Adds a band to a venue's list of concerts| `venue name = "Roseland Theater", band = "Grouplove";`| `"List of bands that have played at Roseland Theater: Grouplove"`|
 
 
 ### Setup/Installation Requirements
