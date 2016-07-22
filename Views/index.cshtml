@@ -30,6 +30,11 @@ else
   <button type="submit">Add new band</button>
 </form>
 
+<form action="/bands/delete-all" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Delete all bands</button>
+</form>
+
 <h2>Venues:</h2>
 @if (@Model["venues"].Count != 0)
 {
@@ -53,6 +58,11 @@ else
 {
   <p>No venues.</p>
 }
+
+<form action="/venues/delete-all" method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit">Remove all venues</button>
+</form>
 
 <form action="/venues/new" method="post">
   <label for="venue-name">Name:</label>
