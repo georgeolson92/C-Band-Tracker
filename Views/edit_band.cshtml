@@ -14,7 +14,7 @@
 
       <form action="/bands/@Model.GetId()/" method="post">
         <input type="hidden" name="_method" value="PATCH">
-        <input name="band-id" value='@Model.GetId()'>
+        <input type="hidden" name="band-id" value='@Model.GetId()'>
         <label for="new-name">New name:</label>
         <input name="new-name" type="text">
         <button type="submit" class="btn btn-success">Edit</button>
