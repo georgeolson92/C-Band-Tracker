@@ -230,21 +230,18 @@ namespace BandTracker
     public List<Band> GetBands()
     {
       SqlConnection conn = DB.Connection();
-      SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT bands.* FROM venues JOIN bands_venues ON (venues.id = bands_venues.venue_id) JOIN bands ON (bands_venues.band_id = bands.id) WHERE venues.id = @VenueId;", conn);
-
+      SqlCommand cmd = new SqlCommand("SELECT band_id FROM bands_venues WHERE venue_id = @BandId;", conn);
       SqlParameter venueIdParameter = new SqlParameter();
-      venueIdParameter.ParameterName = "@VenueId";
+      venueIdParameter.ParameterName = "@BandId";
       venueIdParameter.Value = this.GetId();
       cmd.Parameters.Add(venueIdParameter);
 
-      rdr = cmd.ExecuteReader();
+      SqlDataReader rdr = cmd.ExecuteReader();
 
       List<int> bandIds = new List<int> {};
-
-      while (rdr.Read())
+      while(rdr.Read())
       {
         int bandId = rdr.GetInt32(0);
         bandIds.Add(bandId);
@@ -255,10 +252,8 @@ namespace BandTracker
       }
 
       List<Band> bands = new List<Band> {};
-
       foreach (int bandId in bandIds)
       {
-        SqlDataReader queryReader = null;
         SqlCommand bandQuery = new SqlCommand("SELECT * FROM bands WHERE id = @BandId;", conn);
 
         SqlParameter bandIdParameter = new SqlParameter();
@@ -266,13 +261,13 @@ namespace BandTracker
         bandIdParameter.Value = bandId;
         bandQuery.Parameters.Add(bandIdParameter);
 
-        queryReader = bandQuery.ExecuteReader();
-        while (queryReader.Read())
+        SqlDataReader queryReader = bandQuery.ExecuteReader();
+        while(queryReader.Read())
         {
-          int thisBandId = queryReader.GetInt32(0);
-          string bandName = queryReader.GetString(1);
-          Band foundBand = new Band(bandName, thisBandId);
-          bands.Add(foundBand);
+              int thisBandId = queryReader.GetInt32(0);
+              string bandDescription = queryReader.GetString(1);
+              Band foundBand = new Band(bandDescription, thisBandId);
+              bands.Add(foundBand);
         }
         if (queryReader != null)
         {
