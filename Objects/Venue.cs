@@ -234,11 +234,11 @@ namespace BandTracker
       conn.Open();
 
       SqlCommand cmd = new SqlCommand("SELECT bands.* FROM venues JOIN bands_venues ON (venues.id = bands_venues.venue_id) JOIN bands ON (bands_venues.band_id = bands.id) WHERE venues.id = @VenueId", conn);
-      SqlParameter VenueIdParam = new SqlParameter();
-      VenueIdParam.ParameterName = "@VenueId";
-      VenueIdParam.Value = this.GetId().ToString();
+      SqlParameter VenueIdParameter = new SqlParameter();
+      VenueIdParameter.ParameterName = "@VenueId";
+      VenueIdParameter.Value = this.GetId().ToString();
 
-      cmd.Parameters.Add(VenueIdParam);
+      cmd.Parameters.Add(VenueIdParameter);
 
       rdr = cmd.ExecuteReader();
 
