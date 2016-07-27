@@ -229,54 +229,30 @@ namespace BandTracker
     public List<Venue> GetVenues()
     {
       SqlConnection conn = DB.Connection();
-      SqlDataReader rdr = null;
       conn.Open();
 
-      SqlCommand cmd = new SqlCommand("SELECT venues.* FROM bands JOIN bands_venues ON (bands.id = bands_venues.band_id) JOIN venues ON (bands_venues.venue_id = venues.id) WHERE bands.id = @BandId;", conn);
+      SqlCommand cmd = new SqlCommand("SELECT venues.* FROM bands JOIN bands_venues ON (bands.id = bands_venues.band_id) JOIN venues ON (bands_venues.venue_id = venues.id) WHERE bands.id = @BandId", conn);
+      SqlParameter BandIdParam = new SqlParameter();
+      BandIdParam.ParameterName = "@BandId";
+      BandIdParam.Value = this.GetId().ToString();
 
-      SqlParameter bandIdParameter = new SqlParameter();
-      bandIdParameter.ParameterName = "@BandId";
-      bandIdParameter.Value = this.GetId();
-      cmd.Parameters.Add(bandIdParameter);
+      cmd.Parameters.Add(BandIdParam);
 
-      rdr = cmd.ExecuteReader();
+      SqlDataReader rdr = cmd.ExecuteReader();
 
-      List<int> venueIds = new List<int> {};
+      List<Venue> venues = new List<Venue>{};
 
-      while (rdr.Read())
+      while(rdr.Read())
       {
         int venueId = rdr.GetInt32(0);
-        venueIds.Add(venueId);
+        string venueDescription = rdr.GetString(1);
+        Venue newVenue = new Venue(venueDescription, venueId);
+        venues.Add(newVenue);
       }
+
       if (rdr != null)
       {
         rdr.Close();
-      }
-
-      List<Venue> venues = new List<Venue> {};
-
-      foreach (int venueId in venueIds)
-      {
-        SqlDataReader queryReader = null;
-        SqlCommand venueQuery = new SqlCommand("SELECT * FROM venues WHERE id = @VenueId;", conn);
-
-        SqlParameter venueIdParameter = new SqlParameter();
-        venueIdParameter.ParameterName = "@VenueId";
-        venueIdParameter.Value = venueId;
-        venueQuery.Parameters.Add(venueIdParameter);
-
-        queryReader = venueQuery.ExecuteReader();
-        while (queryReader.Read())
-        {
-          int thisVenueId = queryReader.GetInt32(0);
-          string venueName = queryReader.GetString(1);
-          Venue foundVenue = new Venue(venueName, thisVenueId);
-          venues.Add(foundVenue);
-        }
-        if (queryReader != null)
-        {
-          queryReader.Close();
-        }
       }
       if (conn != null)
       {
